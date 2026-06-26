@@ -698,12 +698,11 @@
     btn.textContent = 'Sending…';
 
     try {
-      const res = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        mode: 'no-cors'   // Make.com webhooks don't send CORS headers; use no-cors
-      });
+        const res = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
 
       // no-cors means we can't read the response status,
       // but Make.com receives the data fine.
