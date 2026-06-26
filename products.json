@@ -1,0 +1,53 @@
+[
+  {
+    "id": "hoody",
+    "name": "Hoody",
+    "type": "sized",
+    "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
+    "image": "images/hoody.jpg",
+    "description": "Premium pullover hoody"
+  },
+  {
+    "id": "sweater",
+    "name": "Sweater",
+    "type": "sized",
+    "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
+    "image": "images/sweater.jpg",
+    "description": "Classic crew-neck sweater"
+  },
+  {
+    "id": "umbrella",
+    "name": "Umbrella",
+    "type": "quantity",
+    "image": "images/umbrella.jpg",
+    "description": "Full-size branded umbrella"
+  },
+  {
+    "id": "cushion",
+    "name": "Cushion",
+    "type": "quantity",
+    "image": "images/cushion.jpg",
+    "description": "Decorative printed cushion"
+  },
+  {
+    "id": "hat",
+    "name": "Hat",
+    "type": "quantity",
+    "image": "images/hat.jpg",
+    "description": "Embroidered cap"
+  },
+  {
+    "id": "scarf",
+    "name": "Scarf",
+    "type": "quantity",
+    "image": "images/scarf.jpg",
+    "description": "Woven branded scarf"
+  },
+  {
+    "id": "key_holder",
+    "name": "Key Holder",
+    "type": "quantity",
+    "image": "images/key_holder.jpg",
+    "description": "Leather key fob"
+  }
+]

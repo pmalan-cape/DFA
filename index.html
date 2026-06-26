@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merchandise Order Form</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & tokens ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --slate:       #1e2535;
+      --slate-light: #2d3748;
+      --amber:       #e8961e;
+      --amber-dark:  #c97d10;
+      --cream:       #f9f7f4;
+      --white:       #ffffff;
+      --border:      #e2e0dc;
+      --text:        #1a1a2e;
+      --muted:       #6b7280;
+      --success:     #16a34a;
+      --error:       #dc2626;
+      --radius:      12px;
+      --shadow:      0 2px 12px rgba(0,0,0,0.08);
+      --shadow-hover:0 6px 24px rgba(0,0,0,0.14);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────────────────── */
+    header {
+      background: var(--slate);
+      color: var(--white);
+      padding: 2rem 1.5rem 1.75rem;
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+    header p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+
+    /* ── Main layout ─────────────────────────────────────── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* ── Section label ───────────────────────────────────── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Contact card ────────────────────────────────────── */
+    .contact-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .contact-card h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"] {
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.85rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--white);
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--amber);
+      box-shadow: 0 0 0 3px rgba(232,150,30,0.12);
+    }
+    input.invalid {
+      border-color: var(--error);
+    }
+    .field-error {
+      font-size: 0.74rem;
+      color: var(--error);
+      display: none;
+    }
+    .field-error.visible { display: block; }
+
+    /* ── Products heading ────────────────────────────────── */
+    .products-heading {
+      margin-bottom: 1.25rem;
+    }
+    .products-heading h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .products-heading p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* ── Product grid ────────────────────────────────────── */
+    #product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Product card ────────────────────────────────────── */
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: box-shadow 0.25s, transform 0.2s;
+    }
+    .product-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Product image area */
+    .product-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #f0ede8;
+      overflow: hidden;
+      cursor: default;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s;
+    }
+    .product-img-wrap img.hidden { opacity: 0; }
+
+    /* Placeholder shown when image is missing */
+    .img-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 2px dashed var(--border);
+      border-radius: 0;
+      pointer-events: none;
+    }
+    .img-placeholder svg { opacity: 0.35; }
+    .img-placeholder span {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .img-placeholder.hidden { display: none; }
+
+    /* Card body */
+    .product-body {
+      padding: 1.1rem 1.25rem 1.25rem;
+    }
+    .product-name {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+    .product-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Sized product: size grid */
+    .size-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+    .size-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      align-items: center;
+    }
+    .size-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .size-row input[type="number"] {
+      text-align: center;
+      padding: 0.45rem 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    /* Quantity-only product */
+    .qty-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .qty-row label {
+      font-size: 0.85rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .qty-row input[type="number"] {
+      width: 80px;
+      text-align: center;
+    }
+
+    /* ── Stepper (+ / - buttons) ─────────────────────────── */
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      width: fit-content;
+    }
+    .stepper input[type="number"] {
+      border: none;
+      border-left: 1.5px solid var(--border);
+      border-right: 1.5px solid var(--border);
+      border-radius: 0;
+      box-shadow: none;
+      width: 52px;
+      padding: 0.45rem 0.25rem;
+    }
+    .stepper input[type="number"]:focus {
+      box-shadow: none;
+      border-color: var(--border);
+    }
+    .step-btn {
+      background: var(--cream);
+      border: none;
+      cursor: pointer;
+      width: 32px;
+      height: 36px;
+      font-size: 1.1rem;
+      color: var(--slate);
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+    .step-btn:hover { background: var(--border); }
+    .step-btn:active { background: #d5d2cd; }
+
+    /* ── Order summary sidebar-style strip ───────────────── */
+    #order-summary {
+      background: var(--slate);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    #order-summary h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+    #summary-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    #summary-list li {
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    #summary-list li span { color: rgba(255,255,255,0.55); }
+    #summary-empty {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
+      font-style: italic;
+    }
+
+    /* ── Webhook config ──────────────────────────────────── */
+    .webhook-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .webhook-card h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .webhook-card p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    #webhook-url {
+      font-family: 'Inter', monospace;
+      font-size: 0.82rem;
+    }
+
+    /* ── Submit button ───────────────────────────────────── */
+    #submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--amber);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.02em;
+    }
+    #submit-btn:hover:not(:disabled) {
+      background: var(--amber-dark);
+      transform: translateY(-1px);
+    }
+    #submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* ── Toast notification ──────────────────────────────── */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--success);
+      color: var(--white);
+      padding: 0.85rem 1.75rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+      z-index: 1000;
+      white-space: nowrap;
+    }
+    #toast.error { background: var(--error); }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      #product-grid  { grid-template-columns: 1fr; }
+      .size-grid     { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Merchandise Orders</h1>
+  <p>Select your items below and submit your order</p>
+</header>
+
+<main>
+
+  <!-- ── Contact details ── -->
+  <div class="contact-card">
+    <p class="section-label">Your Details</p>
+    <h2>Contact Information</h2>
+    <div class="contact-grid">
+      <div class="field">
+        <label for="fname">First Name *</label>
+        <input type="text" id="fname" placeholder="Jane" required />
+        <span class="field-error" id="fname-err">Please enter your first name.</span>
+      </div>
+      <div class="field">
+        <label for="lname">Last Name *</label>
+        <input type="text" id="lname" placeholder="Smith" required />
+        <span class="field-error" id="lname-err">Please enter your last name.</span>
+      </div>
+      <div class="field">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" placeholder="jane@example.com" required />
+        <span class="field-error" id="email-err">Please enter a valid email address.</span>
+      </div>
+      <div class="field">
+        <label for="mobile">Mobile Number *</label>
+        <input type="tel" id="mobile" placeholder="+27 82 000 0000" required />
+        <span class="field-error" id="mobile-err">Please enter your mobile number.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Products ── -->
+  <div class="products-heading">
+    <p class="section-label">Select Items</p>
+    <h2>Products</h2>
+    <p>Enter quantities for each item you'd like to order.</p>
+  </div>
+
+  <div id="product-grid">
+    <!-- Rendered by JS from products.json -->
+    <div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:2rem;">Loading products…</div>
+  </div>
+
+  <!-- ── Order summary ── -->
+  <div id="order-summary">
+    <h3>Order Summary</h3>
+    <ul id="summary-list"></ul>
+    <p id="summary-empty">No items selected yet.</p>
+  </div>
+
+  <!-- ── Webhook URL config ── -->
+  <div class="webhook-card">
+    <p class="section-label">Configuration</p>
+    <h3>Make.com Webhook URL</h3>
+    <p>Paste your Make.com webhook URL below. This is stored only in your browser and never sent anywhere except when you submit an order.</p>
+    <div class="field">
+      <label for="webhook-url">Webhook URL</label>
+      <input type="text" id="webhook-url"
+             placeholder="https://hook.eu1.make.com/xxxxxxxxxxxxxxxx"
+             autocomplete="off" spellcheck="false" />
+    </div>
+  </div>
+
+  <!-- ── Submit ── -->
+  <button id="submit-btn" onclick="submitOrder()">Place Order</button>
+
+</main>
+
+<div id="toast"></div>
+
+<script>
+  /* ── Config ──────────────────────────────────────────────
+     Edit PRODUCTS_URL to point to your products.json path.
+     On GitHub Pages this is typically just './products.json'
+  ─────────────────────────────────────────────────────── */
+  const PRODUCTS_URL = './products.json';
+
+  /* ── State ─────────────────────────────────────────────── */
+  let products = [];
+
+  /* ── Boot ──────────────────────────────────────────────── */
+  (async function init() {
+    try {
+      const res = await fetch(PRODUCTS_URL);
+      if (!res.ok) throw new Error('Could not load products.json');
+      products = await res.json();
+      renderProducts(products);
+    } catch (e) {
+      document.getElementById('product-grid').innerHTML =
+        `<div style="grid-column:1/-1;color:var(--error);padding:1rem;">
+           ⚠ Could not load products: ${e.message}
+         </div>`;
+    }
+
+    // Restore saved webhook URL
+    const saved = localStorage.getItem('merch_webhook_url');
+    if (saved) document.getElementById('webhook-url').value = saved;
+    document.getElementById('webhook-url').addEventListener('input', e => {
+      localStorage.setItem('merch_webhook_url', e.target.value.trim());
+    });
+  })();
+
+  /* ── Render products ────────────────────────────────────── */
+  function renderProducts(products) {
+    const grid = document.getElementById('product-grid');
+    grid.innerHTML = '';
+    products.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.dataset.id = p.id;
+
+      const imgId  = `img-${p.id}`;
+      const phId   = `ph-${p.id}`;
+      const body   = p.type === 'sized'
+        ? renderSizedBody(p)
+        : renderQtyBody(p);
+
+      card.innerHTML = `
+        <div class="product-img-wrap">
+          <img id="${imgId}" src="${p.image}" alt="${p.name}"
+               onload="this.classList.remove('hidden'); document.getElementById('${phId}').classList.add('hidden');"
+               onerror="this.classList.add('hidden');"
+               class="hidden" />
+          <div class="img-placeholder" id="${phId}">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>No image yet</span>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-name">${p.name}</div>
+          <div class="product-desc">${p.description || ''}</div>
+          ${body}
+        </div>`;
+
+      grid.appendChild(card);
+    });
+
+    // Attach change listeners for summary
+    grid.querySelectorAll('input[type="number"]').forEach(inp => {
+      inp.addEventListener('input', updateSummary);
+    });
+  }
+
+  function renderSizedBody(p) {
+    return `
+      <div class="size-grid">
+        ${p.sizes.map(sz => `
+          <div class="size-row">
+            <span class="size-label">${sz}</span>
+            <div class="stepper">
+              <button type="button" class="step-btn" onclick="step(this,-1)">−</button>
+              <input type="number" min="0" value="0"
+                     data-product="${p.id}" data-size="${sz}"
+                     aria-label="${p.name} size ${sz}" />
+              <button type="button" class="step-btn" onclick="step(this,1)">+</button>
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  function renderQtyBody(p) {
+    return `
+      <div class="qty-row">
+        <label>Quantity</label>
+        <div class="stepper">
+          <button type="button" class="step-btn" onclick="step(this,-1)">−</button>
+          <input type="number" min="0" value="0"
+                 data-product="${p.id}"
+                 aria-label="${p.name} quantity" />
+          <button type="button" class="step-btn" onclick="step(this,1)">+</button>
+        </div>
+      </div>`;
+  }
+
+  /* ── Stepper helper ─────────────────────────────────────── */
+  function step(btn, delta) {
+    const inp = btn.parentElement.querySelector('input');
+    const cur = parseInt(inp.value, 10) || 0;
+    inp.value = Math.max(0, cur + delta);
+    inp.dispatchEvent(new Event('input'));
+  }
+
+  /* ── Live order summary ─────────────────────────────────── */
+  function updateSummary() {
+    const list  = document.getElementById('summary-list');
+    const empty = document.getElementById('summary-empty');
+    const lines = buildOrderLines();
+
+    list.innerHTML = '';
+    if (lines.length === 0) {
+      empty.style.display = '';
+      return;
+    }
+    empty.style.display = 'none';
+    lines.forEach(line => {
+      const li = document.createElement('li');
+      li.innerHTML = `${line.label} <span>× ${line.qty}</span>`;
+      list.appendChild(li);
+    });
+  }
+
+  function buildOrderLines() {
+    const lines = [];
+    document.querySelectorAll('input[type="number"]').forEach(inp => {
+      const qty = parseInt(inp.value, 10) || 0;
+      if (qty <= 0) return;
+      const pid  = inp.dataset.product;
+      const size = inp.dataset.size;
+      const prod = products.find(p => p.id === pid);
+      lines.push({
+        product: prod?.name || pid,
+        size: size || null,
+        qty,
+        label: size ? `${prod?.name || pid} (${size})` : (prod?.name || pid)
+      });
+    });
+    return lines;
+  }
+
+  /* ── Validation ─────────────────────────────────────────── */
+  function validate() {
+    let ok = true;
+
+    const fields = [
+      { id: 'fname',  errId: 'fname-err',  check: v => v.trim().length > 0 },
+      { id: 'lname',  errId: 'lname-err',  check: v => v.trim().length > 0 },
+      { id: 'email',  errId: 'email-err',  check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+      { id: 'mobile', errId: 'mobile-err', check: v => v.trim().length >= 7 },
+    ];
+
+    fields.forEach(({ id, errId, check }) => {
+      const inp = document.getElementById(id);
+      const err = document.getElementById(errId);
+      const pass = check(inp.value);
+      inp.classList.toggle('invalid', !pass);
+      err.classList.toggle('visible', !pass);
+      if (!pass) ok = false;
+    });
+
+    return ok;
+  }
+
+  /* ── Submit ─────────────────────────────────────────────── */
+  async function submitOrder() {
+    if (!validate()) {
+      showToast('Please fill in all required fields.', true);
+      return;
+    }
+
+    const lines = buildOrderLines();
+    if (lines.length === 0) {
+      showToast('Please select at least one product.', true);
+      return;
+    }
+
+    const webhookUrl = document.getElementById('webhook-url').value.trim();
+    if (!webhookUrl) {
+      showToast('Please enter your Make.com webhook URL.', true);
+      return;
+    }
+
+    // Build payload
+    const payload = {
+      submitted_at: new Date().toISOString(),
+      contact: {
+        first_name: document.getElementById('fname').value.trim(),
+        last_name:  document.getElementById('lname').value.trim(),
+        email:      document.getElementById('email').value.trim(),
+        mobile:     document.getElementById('mobile').value.trim(),
+      },
+      order_lines: lines,
+      // Flat columns for easy Google Sheets mapping
+      order_summary: lines.map(l => l.label + ' x' + l.qty).join('; ')
+    };
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    try {
+      const res = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        mode: 'no-cors'   // Make.com webhooks don't send CORS headers; use no-cors
+      });
+
+      // no-cors means we can't read the response status,
+      // but Make.com receives the data fine.
+      showToast('✓ Order submitted successfully!');
+      resetForm();
+    } catch (err) {
+      console.error(err);
+      showToast('Submission failed — check the webhook URL and try again.', true);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Place Order';
+    }
+  }
+
+  function resetForm() {
+    ['fname','lname','email','mobile'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.querySelectorAll('input[type="number"]').forEach(inp => {
+      inp.value = 0;
+    });
+    updateSummary();
+  }
+
+  /* ── Toast ──────────────────────────────────────────────── */
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = isError ? 'error' : '';
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4000);
+  }
+</script>
+
+</body>
+</html>
