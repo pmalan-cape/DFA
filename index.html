@@ -499,6 +499,10 @@
   /* ── Boot ──────────────────────────────────────────────── */
   (async function init() {
     try {
+
+      document.getElementById('webhook-url').value = 'https://hook.eu1.make.com/fdcmu8islay5niq1ihpwddd8po3kjnwj';
+      document.querySelector('.webhook-card').style.display = 'none';
+      
       const res = await fetch(PRODUCTS_URL);
       if (!res.ok) throw new Error('Could not load products.json');
       products = await res.json();
