@@ -928,7 +928,8 @@ async function submitOrder() {
     if (!data.success) throw new Error(data.error || 'Order processor returned an error');
 
     const orderId     = data.order_id;
-    const paymentLink = `${PAYMENT_URL}?order_id=${encodeURIComponent(orderId)}&amount=${orderTotal}`;
+   // const paymentLink = `${PAYMENT_URL}?order_id=${encodeURIComponent(orderId)}&amount=${orderTotal}`;
+    const paymentLink = `${PAYMENT_URL}?amount=${orderTotal}&reference=${encodeURIComponent(orderId)}`;
 
     showToast(`✓ Order ${orderId} confirmed — redirecting to payment…`);
     resetForm();
