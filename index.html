@@ -629,7 +629,7 @@ function buildProductCard(p) {
   const hasDetail = p.detail || p.sizeChart;
   const toggleHtml = hasDetail ? `
     <button class="detail-toggle" id="${toggleId}" onclick="toggleDetail('${p.code}')">
-      Details <span class="arrow">▾</span>
+      Product Details and Size Chart <span class="arrow">▾</span>
     </button>
     <div class="detail-panel" id="${panelId}">
       <div class="detail-panel-inner">
