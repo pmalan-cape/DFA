@@ -50,13 +50,9 @@
       letter-spacing: -0.01em;
       margin-bottom: 0.4rem;
     }
-    header p {
-      color: rgba(255,255,255,0.6);
-      font-size: 0.9rem;
-      font-weight: 300;
-    }
+    header p { color: rgba(255,255,255,0.6); font-size: 0.9rem; font-weight: 300; }
 
-    /* ── Stock status bar ────────────────────────────────── */
+    /* ── Status bar ──────────────────────────────────────── */
     #stock-status {
       background: var(--slate-light);
       color: rgba(255,255,255,0.7);
@@ -64,386 +60,229 @@
       font-size: 0.78rem;
       padding: 0.45rem 1rem;
       letter-spacing: 0.03em;
+      transition: opacity 0.5s;
     }
-    #stock-status.loaded  { color: #6ee7b7; }
-    #stock-status.error   { color: #fca5a5; }
+    #stock-status.loaded { color: #6ee7b7; }
+    #stock-status.error  { color: #fca5a5; }
 
-    /* ── Main layout ─────────────────────────────────────── */
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 2.5rem 1.25rem 4rem;
-    }
+    /* ── Main ────────────────────────────────────────────── */
+    main { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
 
     /* ── Section label ───────────────────────────────────── */
     .section-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 0.75rem;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.75rem;
     }
 
     /* ── Contact card ────────────────────────────────────── */
     .contact-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 2rem;
-      margin-bottom: 2.5rem;
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding: 2rem; margin-bottom: 2.5rem;
     }
     .contact-card h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--border);
+      font-size: 1.1rem; font-weight: 600; margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
     }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+    label { font-size: 0.8rem; font-weight: 500; color: var(--muted); }
+
+    input[type="text"], input[type="email"], input[type="tel"], input[type="number"] {
+      border: 1.5px solid var(--border); border-radius: 8px; padding: 0.6rem 0.85rem;
+      font-family: inherit; font-size: 0.9rem; color: var(--text);
+      background: var(--white); transition: border-color 0.2s; width: 100%;
     }
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-    label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--muted);
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="number"] {
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      padding: 0.6rem 0.85rem;
-      font-family: inherit;
-      font-size: 0.9rem;
-      color: var(--text);
-      background: var(--white);
-      transition: border-color 0.2s;
-      width: 100%;
-    }
-    input:focus {
-      outline: none;
-      border-color: var(--amber);
-      box-shadow: 0 0 0 3px rgba(232,150,30,0.12);
-    }
+    input:focus { outline: none; border-color: var(--amber); box-shadow: 0 0 0 3px rgba(232,150,30,0.12); }
     input.invalid { border-color: var(--error); }
-    .field-error {
-      font-size: 0.74rem;
-      color: var(--error);
-      display: none;
-    }
+    .field-error { font-size: 0.74rem; color: var(--error); display: none; }
     .field-error.visible { display: block; }
 
     /* ── Category section ────────────────────────────────── */
     .category-section { margin-bottom: 2.5rem; }
-    .category-heading {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.1rem;
-    }
-    .category-heading h2 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .category-heading::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
+    .category-heading { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; }
+    .category-heading h2 { font-size: 1.15rem; font-weight: 600; white-space: nowrap; }
+    .category-heading::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     /* ── Product grid ────────────────────────────────────── */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 1.25rem;
-    }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.25rem; }
 
     /* ── Product card ────────────────────────────────────── */
     .product-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
       transition: box-shadow 0.25s, transform 0.2s;
-      display: flex;
-      flex-direction: column;
+      display: flex; flex-direction: column;
     }
-    .product-card:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
-    }
+    .product-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
 
-    /* Product image */
+    /* Image */
     .product-img-wrap {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4/3;
-      background: #f0ede8;
-      overflow: hidden;
+      position: relative; width: 100%; aspect-ratio: 4/3;
+      background: #f0ede8; overflow: hidden;
     }
     .product-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: opacity 0.3s;
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: opacity 0.3s;
     }
     .product-img-wrap img.hidden { opacity: 0; }
     .img-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      border: 2px dashed var(--border);
-      pointer-events: none;
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.5rem;
+      border: 2px dashed var(--border); pointer-events: none;
     }
     .img-placeholder svg { opacity: 0.35; }
-    .img-placeholder span {
-      font-size: 0.72rem;
-      color: var(--muted);
-      font-weight: 500;
-    }
+    .img-placeholder span { font-size: 0.72rem; color: var(--muted); font-weight: 500; }
     .img-placeholder.hidden { display: none; }
 
     /* Card body */
-    .product-body {
-      padding: 1.1rem 1.25rem 1.25rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .product-name {
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 0.15rem;
-    }
-    .product-desc {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-bottom: 0.6rem;
-    }
-
-    /* Price tag */
-    .product-price {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--amber-dark);
-      margin-bottom: 1rem;
-    }
+    .product-body { padding: 1.1rem 1.25rem 0; flex: 1; display: flex; flex-direction: column; }
+    .product-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.15rem; }
+    .product-meta { font-size: 0.74rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .product-desc { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .product-price { font-size: 0.95rem; font-weight: 600; color: var(--amber-dark); margin-bottom: 1rem; }
     .product-price.loading {
-      background: var(--border);
-      border-radius: 4px;
-      color: transparent;
-      width: 60px;
-      height: 1em;
-      animation: shimmer 1.2s infinite;
+      background: var(--border); border-radius: 4px; color: transparent;
+      width: 60px; height: 1em; animation: shimmer 1.2s infinite;
     }
 
-    /* ── Shimmer for loading state ───────────────────────── */
-    @keyframes shimmer {
-      0%   { opacity: 0.5; }
-      50%  { opacity: 1;   }
-      100% { opacity: 0.5; }
-    }
+    @keyframes shimmer { 0%,100%{opacity:0.5} 50%{opacity:1} }
 
-    /* ── Sized product: size grid ────────────────────────── */
-    .size-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      margin-top: auto;
-    }
-    .size-row {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      align-items: center;
-    }
-    .size-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* Out-of-stock badge under size label */
+    /* ── Size grid ───────────────────────────────────────── */
+    .size-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .size-row { display: flex; flex-direction: column; gap: 0.25rem; align-items: center; }
+    .size-label { font-size: 0.7rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
     .oos-badge {
-      font-size: 0.62rem;
-      font-weight: 600;
-      color: var(--oos-text);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      background: var(--oos-bg);
-      border-radius: 4px;
-      padding: 0.15rem 0.35rem;
-      margin-top: 0.1rem;
+      font-size: 0.62rem; font-weight: 600; color: var(--oos-text);
+      text-transform: uppercase; letter-spacing: 0.04em;
+      background: var(--oos-bg); border-radius: 4px; padding: 0.15rem 0.35rem; margin-top: 0.1rem;
     }
-
-    /* Stock count hint */
-    .stock-hint {
-      font-size: 0.65rem;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 0.15rem;
-    }
+    .stock-hint { font-size: 0.65rem; color: var(--muted); text-align: center; margin-top: 0.15rem; }
     .stock-hint.low { color: #d97706; font-weight: 600; }
 
-    /* ── Quantity-only product ───────────────────────────── */
-    .qty-row {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-top: auto;
-    }
-    .qty-row label {
-      font-size: 0.85rem;
-      color: var(--text);
-      font-weight: 500;
-    }
+    /* ── Qty row ─────────────────────────────────────────── */
+    .qty-row { display: flex; align-items: center; gap: 0.75rem; margin-top: auto; }
+    .qty-row label { font-size: 0.85rem; color: var(--text); font-weight: 500; }
 
     /* ── Stepper ─────────────────────────────────────────── */
     .stepper {
-      display: flex;
-      align-items: center;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      width: fit-content;
+      display: flex; align-items: center;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      overflow: hidden; width: fit-content;
     }
     .stepper input[type="number"] {
-      border: none;
-      border-left: 1.5px solid var(--border);
-      border-right: 1.5px solid var(--border);
-      border-radius: 0;
-      box-shadow: none;
-      width: 52px;
-      padding: 0.45rem 0.25rem;
-      text-align: center;
+      border: none; border-left: 1.5px solid var(--border); border-right: 1.5px solid var(--border);
+      border-radius: 0; box-shadow: none; width: 52px; padding: 0.45rem 0.25rem; text-align: center;
     }
-    .stepper input[type="number"]:focus {
-      box-shadow: none;
-      border-color: var(--border);
-    }
-    .stepper.disabled {
-      opacity: 0.45;
-      pointer-events: none;
-      background: var(--oos-bg);
-    }
+    .stepper input[type="number"]:focus { box-shadow: none; border-color: var(--border); }
+    .stepper.disabled { opacity: 0.45; pointer-events: none; background: var(--oos-bg); }
     .step-btn {
-      background: var(--cream);
-      border: none;
-      cursor: pointer;
-      width: 32px;
-      height: 36px;
-      font-size: 1.1rem;
-      color: var(--slate);
-      transition: background 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
+      background: var(--cream); border: none; cursor: pointer;
+      width: 32px; height: 36px; font-size: 1.1rem; color: var(--slate);
+      transition: background 0.15s; display: flex; align-items: center;
+      justify-content: center; user-select: none;
     }
     .step-btn:hover  { background: var(--border); }
     .step-btn:active { background: #d5d2cd; }
 
+    /* ── Detail panel (expandable) ───────────────────────── */
+    .detail-toggle {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.35rem; width: 100%; padding: 0.65rem 1.25rem;
+      margin-top: 0.85rem;
+      background: none; border: none; border-top: 1px solid var(--border);
+      font-family: inherit; font-size: 0.78rem; font-weight: 500;
+      color: var(--muted); cursor: pointer; transition: color 0.2s, background 0.2s;
+    }
+    .detail-toggle:hover { color: var(--amber); background: #fdf8f0; }
+    .detail-toggle .arrow { transition: transform 0.25s; display: inline-block; }
+    .detail-toggle.open .arrow { transform: rotate(180deg); }
+
+    .detail-panel {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.25s ease;
+      background: var(--cream);
+      border-top: none;
+    }
+    .detail-panel.open {
+      max-height: 400px;
+      border-top: 1px solid var(--border);
+    }
+    .detail-panel-inner { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .detail-text { font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+
+    .size-chart-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 0.9rem; border-radius: 8px;
+      background: var(--white); border: 1.5px solid var(--border);
+      font-family: inherit; font-size: 0.8rem; font-weight: 500;
+      color: var(--slate); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      align-self: flex-start;
+    }
+    .size-chart-btn:hover { border-color: var(--amber); color: var(--amber); }
+
+    /* ── Lightbox ────────────────────────────────────────── */
+    #lightbox {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.85); align-items: center; justify-content: center;
+      padding: 1.5rem; cursor: pointer;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 100%; max-height: 90vh; border-radius: var(--radius);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5); cursor: default;
+    }
+    #lightbox-close {
+      position: absolute; top: 1rem; right: 1.25rem;
+      background: rgba(255,255,255,0.15); border: none; color: var(--white);
+      font-size: 1.5rem; width: 2.25rem; height: 2.25rem; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    #lightbox-close:hover { background: rgba(255,255,255,0.3); }
+
     /* ── Order summary ───────────────────────────────────── */
     #order-summary {
-      background: var(--slate);
-      color: var(--white);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+      background: var(--slate); color: var(--white);
+      border-radius: var(--radius); padding: 1.5rem; margin-bottom: 2rem;
     }
     #order-summary h3 {
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 0.75rem;
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.75rem;
     }
-    #summary-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-    #summary-list li {
-      font-size: 0.85rem;
-      display: flex;
-      justify-content: space-between;
-    }
+    #summary-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    #summary-list li { font-size: 0.85rem; display: flex; justify-content: space-between; }
     #summary-list li .sum-qty   { color: rgba(255,255,255,0.55); }
     #summary-list li .sum-price { color: var(--amber); font-weight: 500; }
-    #summary-empty {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.45);
-      font-style: italic;
-    }
+    #summary-empty { font-size: 0.85rem; color: rgba(255,255,255,0.45); font-style: italic; }
     #summary-total {
-      margin-top: 0.85rem;
-      padding-top: 0.75rem;
+      margin-top: 0.85rem; padding-top: 0.75rem;
       border-top: 1px solid rgba(255,255,255,0.15);
-      font-size: 0.95rem;
-      font-weight: 600;
-      display: flex;
-      justify-content: space-between;
-      display: none;
+      font-size: 0.95rem; font-weight: 600;
+      display: none; justify-content: space-between;
     }
     #summary-total span { color: var(--amber); }
 
-    /* ── Submit button ───────────────────────────────────── */
+    /* ── Submit ──────────────────────────────────────────── */
     #submit-btn {
-      width: 100%;
-      padding: 1rem;
-      background: var(--amber);
-      color: var(--white);
-      border: none;
-      border-radius: var(--radius);
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      letter-spacing: 0.02em;
+      width: 100%; padding: 1rem; background: var(--amber);
+      color: var(--white); border: none; border-radius: var(--radius);
+      font-family: inherit; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s, transform 0.15s; letter-spacing: 0.02em;
     }
-    #submit-btn:hover:not(:disabled) {
-      background: var(--amber-dark);
-      transform: translateY(-1px);
-    }
+    #submit-btn:hover:not(:disabled) { background: var(--amber-dark); transform: translateY(-1px); }
     #submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
     /* ── Toast ───────────────────────────────────────────── */
     #toast {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
+      position: fixed; bottom: 2rem; left: 50%;
       transform: translateX(-50%) translateY(120%);
-      background: var(--success);
-      color: var(--white);
-      padding: 0.85rem 1.75rem;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 500;
+      background: var(--success); color: var(--white);
+      padding: 0.85rem 1.75rem; border-radius: 50px;
+      font-size: 0.9rem; font-weight: 500;
       box-shadow: 0 4px 20px rgba(0,0,0,0.2);
       transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
-      z-index: 1000;
-      white-space: nowrap;
+      z-index: 1000; white-space: nowrap;
     }
     #toast.error { background: var(--error); }
     #toast.show  { transform: translateX(-50%) translateY(0); }
@@ -463,11 +302,11 @@
   <p>Select your items below and submit your order</p>
 </header>
 
-<div id="stock-status">Loading stock availability…</div>
+<div id="stock-status">Loading products and stock…</div>
 
 <main>
 
-  <!-- ── Contact details ── -->
+  <!-- Contact details -->
   <div class="contact-card">
     <p class="section-label">Your Details</p>
     <h2>Contact Information</h2>
@@ -495,12 +334,12 @@
     </div>
   </div>
 
-  <!-- ── Products (rendered by JS) ── -->
+  <!-- Catalogue (rendered by JS) -->
   <div id="catalogue">
     <div style="text-align:center;color:var(--muted);padding:3rem;">Loading products…</div>
   </div>
 
-  <!-- ── Order summary ── -->
+  <!-- Order summary -->
   <div id="order-summary">
     <h3>Order Summary</h3>
     <ul id="summary-list"></ul>
@@ -508,105 +347,165 @@
     <div id="summary-total">Total estimate <span id="total-amount"></span></div>
   </div>
 
-  <!-- ── Submit ── -->
   <button id="submit-btn" onclick="submitOrder()">Place Order</button>
 
 </main>
+
+<!-- Lightbox for size charts -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="Size chart" onclick="event.stopPropagation()" />
+</div>
 
 <div id="toast"></div>
 
 <script>
 /* ═══════════════════════════════════════════════════════════
-   CONFIG — update these two values as needed
+   CONFIG
 ═══════════════════════════════════════════════════════════ */
-const PRODUCTS_URL = './products.json';
-const STOCK_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRkNV_v3bf_N7ZlexF2nIstAqexwzwM8cKuf4dFMY8yWXv1J16EM7YVa55Z4WXvuJfM1zsm7h7hPCFA/pub?gid=1208027457&single=true&output=csv';
-const WEBHOOK_URL   = 'https://hook.eu1.make.com/fdcmu8islay5niq1ihpwddd8po3kjnwj';
+const PRODUCT_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRkNV_v3bf_N7ZlexF2nIstAqexwzwM8cKuf4dFMY8yWXv1J16EM7YVa55Z4WXvuJfM1zsm7h7hPCFA/pub?gid=108128361&single=true&output=csv';
+const STOCK_CSV_URL   = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRkNV_v3bf_N7ZlexF2nIstAqexwzwM8cKuf4dFMY8yWXv1J16EM7YVa55Z4WXvuJfM1zsm7h7hPCFA/pub?gid=1208027457&single=true&output=csv';
+
+// Cloudflare Worker URL — replace after deploying cloudflare-worker.js
+const WORKER_URL  = 'https://little-mountain-0377.pmalan-cape.workers.dev/';
+
+// Payment platform base URL
+const PAYMENT_URL = 'https://pay.yoco.com/cape-multisport';
+  //"https://pay.yoco.com/cape-multisport?amount="&F3&"&reference="&G3
+  //https://pay.yoco.com/[your-business-name]?amount=[value]&reference=[text]
+
+/* ═══════════════════════════════════════════════════════════
+   SIZE TYPE DEFINITIONS
+   Edit this object to add new size structures.
+   Key = SizeType value in the Products sheet (uppercase).
+   ONE is special: renders a single qty stepper, no size grid.
+═══════════════════════════════════════════════════════════ */
+const SIZE_TYPES = {
+  'SML':    ['2XS', 'XS', 'S', 'M', 'L', 'XL', '2XL', '3XL'],
+  'ONE':    ['ALL'],
+  'SOCKS':  ['8', '9', '10', '11'],
+  'INCHES': ['28', '30', '32', '34', '36', '38'],
+  'BLAZER': ['75', '78', '80L', '82', '84', '86L'],
+};
 
 /* ═══════════════════════════════════════════════════════════
    STATE
 ═══════════════════════════════════════════════════════════ */
-let products  = [];   // from products.json
-let stockMap  = {};   // key: "PRODUCTCODE" or "PRODUCTCODE|SIZE" → { price, stock }
+let products = [];   // array of product objects built from Products CSV
+let stockMap = {};   // "PRODUCTCODE|SIZE" → { price, stock }
 
 /* ═══════════════════════════════════════════════════════════
-   BOOT
+   BOOT — fetch both CSVs in parallel
 ═══════════════════════════════════════════════════════════ */
 (async function init() {
+  const bar = document.getElementById('stock-status');
 
-  // 1. Load products.json first — render immediately
   try {
-    const res = await fetch(PRODUCTS_URL);
-    if (!res.ok) throw new Error('Could not load products.json');
-    products = await res.json();
+    const [productCsv, stockCsv] = await Promise.all([
+      fetch(PRODUCT_CSV_URL).then(r => { if (!r.ok) throw new Error('Products CSV: HTTP ' + r.status); return r.text(); }),
+      fetch(STOCK_CSV_URL).then(r =>   { if (!r.ok) throw new Error('Stock CSV: HTTP '   + r.status); return r.text(); }),
+    ]);
+
+    products = parseProductCsv(productCsv);
+    stockMap = parseStockCsv(stockCsv);
+
+    if (products.length === 0) throw new Error('No products found in Products sheet');
+
     renderCatalogue(products);
+
+    bar.textContent = '✓ Products and stock loaded';
+    bar.className   = 'loaded';
+    setTimeout(() => { bar.style.opacity = '0'; setTimeout(() => bar.style.display = 'none', 500); }, 3000);
+
   } catch (e) {
+    bar.textContent = '⚠ ' + e.message;
+    bar.className   = 'error';
     document.getElementById('catalogue').innerHTML =
-      `<p style="color:var(--error);padding:1rem;">⚠ Could not load products: ${e.message}</p>`;
-    return;
+      `<p style="color:var(--error);padding:1rem;">Could not load product data. Please refresh and try again.</p>`;
+    console.error(e);
   }
-
-  // 2. Fetch stock CSV in background — update cards when ready
-  fetchAndApplyStock();
-
 })();
 
 /* ═══════════════════════════════════════════════════════════
-   CSV FETCH & PARSE
+   PARSE PRODUCTS CSV
+   Columns: ProductCode, ProductName, ProductCat, ProductSubCat,
+            Gen, SizeType, ImagePath, SizeChartPath, DetailText, SortOrder
 ═══════════════════════════════════════════════════════════ */
-async function fetchAndApplyStock() {
-  const bar = document.getElementById('stock-status');
-  try {
-    const res = await fetch(STOCK_CSV_URL);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const csv = await res.text();
-    stockMap = parseStockCsv(csv);
-    applyStockToCards();
-    bar.textContent = '✓ Stock availability loaded';
-    bar.className = 'loaded';
-    setTimeout(() => bar.style.display = 'none', 3000);
-  } catch (e) {
-    bar.textContent = '⚠ Could not load stock data — prices and availability unavailable';
-    bar.className = 'error';
-    console.warn('Stock fetch error:', e);
+function parseProductCsv(csv) {
+  const lines = csv.trim().split('\n');
+  if (lines.length < 2) return [];
+
+  const headers = splitCsvLine(lines[0]).map(h =>
+    h.trim().toLowerCase().replace(/^\ufeff/, '').replace(/[^a-z]/g, '')
+  );
+
+  const c = name => headers.indexOf(name);
+  const cCode    = c('productcode');
+  const cName    = c('productname');
+  const cCat     = c('productcat');
+  const cSubCat  = c('productsubcat');
+  const cGen     = c('gen');
+  const cSizeType= c('sizetype');
+  const cImg     = c('imagepath');
+  const cChart   = c('sizechartpath');
+  const cDetail  = c('detailtext');
+  const cSort    = c('sortorder');
+
+  const result = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const cols = splitCsvLine(lines[i].trim());
+    if (!cols.length || !cols[cCode]?.trim()) continue;
+
+    const sizeType = (cols[cSizeType] || 'ONE').trim().toUpperCase();
+    const sizes    = SIZE_TYPES[sizeType] || ['ALL'];
+
+    result.push({
+      code:       cols[cCode].trim().toUpperCase(),
+      name:       (cols[cName]    || '').trim(),
+      cat:        (cols[cCat]     || 'Other').trim(),
+      subCat:     (cols[cSubCat]  || '').trim(),
+      gen:        (cols[cGen]     || '').trim(),
+      sizeType,
+      sizes,
+      isOne:      sizeType === 'ONE',
+      image:      (cols[cImg]     || '').trim(),
+      sizeChart:  (cols[cChart]   || '').trim(),
+      detail:     (cols[cDetail]  || '').trim(),
+      sortOrder:  parseInt(cols[cSort] || '9999', 10) || 9999,
+    });
   }
+
+  // Sort by SortOrder
+  result.sort((a, b) => a.sortOrder - b.sortOrder);
+  return result;
 }
 
-/**
- * Parse CSV into stockMap.
- * Columns: StockID, Batch, ProductCat, ProductCode, ProductName,
- *          Size, Gen, PurchacePrice, BatchReceiveDate,
- *          OrderCount, SoldCount, StockOnHand
- *
- * Key strategy:
- *   Sized items  → "PRODUCTCODE|SIZE"  e.g. "HOODY|L"
- *   Other items  → "PRODUCTCODE"       e.g. "UMBRELLA"
- *
- * Multiple batches per key → stock summed, lowest price kept.
- * Negative StockOnHand values are treated as 0.
- */
+/* ═══════════════════════════════════════════════════════════
+   PARSE STOCK CSV
+   Columns: StockID, Batch, ProductCat, ProductCode, ProductName,
+            Size, Gen, PurchacePrice, BatchReceiveDate,
+            OrderCount, SoldCount, StockOnHand
+   Key: "PRODUCTCODE|SIZE"  (e.g. "OS-UHD|L" or "OS-USH|ALL")
+   Multiple batches → stock summed, lowest price kept.
+═══════════════════════════════════════════════════════════ */
 function parseStockCsv(csv) {
-  const lines = csv.trim().split('\n');
+  const MAX_COLS = 12;
+  const lines    = csv.trim().split('\n');
   if (lines.length < 2) return {};
 
-  // Normalise header: lowercase, letters only, strip BOM
-  // Only look at the first 12 columns — ignore trailing legend columns
-  const MAX_COLS = 12;
-  const headers = splitCsvLine(lines[0])
-    .slice(0, MAX_COLS)
-    .map(h => h.trim().toLowerCase().replace(/^\ufeff/, '').replace(/[^a-z]/g, ''));
+  const headers = splitCsvLine(lines[0]).slice(0, MAX_COLS).map(h =>
+    h.trim().toLowerCase().replace(/^\ufeff/, '').replace(/[^a-z]/g, '')
+  );
 
-  // Exact column lookup by normalised name
-  const col = name => headers.indexOf(name);
+  const c = name => headers.indexOf(name);
+  const cCode  = c('productcode');
+  const cSize  = c('size');
+  const cPrice = c('purchaceprice');
+  const cStock = c('stockonhand');
 
-  const cCode  = col('productcode');   // col 3
-  const cSize  = col('size');          // col 5
-  const cPrice = col('purchaceprice'); // col 7  (intentional typo in sheet)
-  const cStock = col('stockonhand');   // col 11
-
-  // Bail out if essential columns not found
   if (cCode === -1 || cStock === -1) {
-    console.warn('Stock CSV: could not find required columns. Headers found:', headers);
+    console.warn('Stock CSV: required columns not found. Headers:', headers);
     return {};
   }
 
@@ -616,32 +515,30 @@ function parseStockCsv(csv) {
     const line = lines[i].trim();
     if (!line) continue;
 
-    const cols = splitCsvLine(line).slice(0, MAX_COLS);
-
+    const cols  = splitCsvLine(line).slice(0, MAX_COLS);
     const code  = (cols[cCode] || '').trim().toUpperCase();
-    const size  = cSize  !== -1 ? (cols[cSize]  || '').trim().toUpperCase() : '';
+    const size  = cSize  !== -1 ? (cols[cSize]  || 'ALL').trim().toUpperCase() : 'ALL';
     const price = cPrice !== -1 ? parseFloat((cols[cPrice] || '0').trim()) || 0 : 0;
-    // Parse stock: allow negatives (treat as 0), strip any stray chars except minus/digits
     const rawStock = (cols[cStock] || '0').trim().replace(/[^0-9\-]/g, '');
     const stock = Math.max(0, parseInt(rawStock, 10) || 0);
 
     if (!code) continue;
 
-    // Sized product: key = "PRODUCTCODE|SIZE"; quantity product: key = "PRODUCTCODE"
-    const key = size ? `${code}|${size}` : code;
-
+    const key = `${code}|${size}`;
     if (!map[key]) {
       map[key] = { price, stock };
     } else {
       map[key].stock += stock;
-      map[key].price  = Math.min(map[key].price, price); // lowest price across batches
+      map[key].price  = Math.min(map[key].price, price);
     }
   }
 
   return map;
 }
 
-/** Handle quoted CSV fields properly */
+/* ═══════════════════════════════════════════════════════════
+   CSV LINE SPLITTER (handles quoted fields)
+═══════════════════════════════════════════════════════════ */
 function splitCsvLine(line) {
   const result = [];
   let cur = '', inQ = false;
@@ -656,97 +553,15 @@ function splitCsvLine(line) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   APPLY STOCK TO RENDERED CARDS
-═══════════════════════════════════════════════════════════ */
-function applyStockToCards() {
-  products.forEach(p => {
-    if (p.type === 'sized') {
-      p.sizes.forEach(sz => {
-        const key  = `${p.id.toUpperCase()}|${sz.toUpperCase()}`;
-        const data = stockMap[key];
-        applySizeStock(p.id, sz, data);
-      });
-      // Show price from first available size
-      const firstKey = p.sizes.map(sz => `${p.id.toUpperCase()}|${sz.toUpperCase()}`)
-        .find(k => stockMap[k]);
-      if (firstKey) setPrice(p.id, stockMap[firstKey].price);
-
-    } else {
-      const key  = p.id.toUpperCase();
-      const data = stockMap[key];
-      if (data) {
-        setPrice(p.id, data.price);
-        applyQtyStock(p.id, data);
-      }
-    }
-  });
-  updateSummary(); // refresh prices in summary
-}
-
-function applySizeStock(pid, size, data) {
-  const stepperEl = document.getElementById(`stepper-${pid}-${size}`);
-  const hintEl    = document.getElementById(`hint-${pid}-${size}`);
-  if (!stepperEl) return;
-
-  if (!data || data.stock <= 0) {
-    stepperEl.classList.add('disabled');
-    stepperEl.querySelector('input').value = 0;
-    if (hintEl) { hintEl.textContent = 'Out of stock'; hintEl.className = 'oos-badge'; }
-  } else {
-    stepperEl.classList.remove('disabled');
-    if (hintEl) {
-      if (data.stock <= 3) {
-        hintEl.textContent = `Only ${data.stock} left`;
-        hintEl.className = 'stock-hint low';
-      } else {
-        hintEl.textContent = `${data.stock} available`;
-        hintEl.className = 'stock-hint';
-      }
-    }
-  }
-}
-
-function applyQtyStock(pid, data) {
-  const stepperEl = document.getElementById(`stepper-${pid}`);
-  const hintEl    = document.getElementById(`hint-${pid}`);
-  if (!stepperEl) return;
-
-  if (!data || data.stock <= 0) {
-    stepperEl.classList.add('disabled');
-    stepperEl.querySelector('input').value = 0;
-    if (hintEl) { hintEl.textContent = 'Out of stock'; hintEl.className = 'oos-badge'; }
-  } else {
-    stepperEl.classList.remove('disabled');
-    if (hintEl) {
-      if (data.stock <= 3) {
-        hintEl.textContent = `Only ${data.stock} left`;
-        hintEl.className = 'stock-hint low';
-      } else {
-        hintEl.textContent = `${data.stock} available`;
-        hintEl.className = 'stock-hint';
-      }
-    }
-  }
-}
-
-function setPrice(pid, price) {
-  const el = document.getElementById(`price-${pid}`);
-  if (!el) return;
-  el.textContent = `R ${price.toFixed(2)}`;
-  el.classList.remove('loading');
-}
-
-/* ═══════════════════════════════════════════════════════════
-   RENDER CATALOGUE (grouped by category)
+   RENDER CATALOGUE — grouped by ProductCat, ordered by SortOrder
 ═══════════════════════════════════════════════════════════ */
 function renderCatalogue(products) {
-  // Group products by category, preserving order
+  // Group preserving sort order
   const categories = [];
-  const catMap = {};
+  const catMap     = {};
   products.forEach(p => {
-    const cat = p.category || 'Other';
-    if (!catMap[cat]) { catMap[cat] = []; categories.push(cat); }
-    catMap[cat].push(p);
+    if (!catMap[p.cat]) { catMap[p.cat] = []; categories.push(p.cat); }
+    catMap[p.cat].push(p);
   });
 
   const catalogue = document.getElementById('catalogue');
@@ -760,14 +575,11 @@ function renderCatalogue(products) {
         <p class="section-label" style="margin:0">Products</p>
         <h2>${cat}</h2>
       </div>
-      <div class="product-grid" id="grid-${cat.replace(/\s+/g,'-')}"></div>`;
+      <div class="product-grid" id="grid-${cat.replace(/\W/g,'-')}"></div>`;
     catalogue.appendChild(section);
 
     const grid = section.querySelector('.product-grid');
-    catMap[cat].forEach(p => {
-      const card = buildProductCard(p);
-      grid.appendChild(card);
-    });
+    catMap[cat].forEach(p => grid.appendChild(buildProductCard(p)));
   });
 
   // Attach input listeners for live summary
@@ -776,13 +588,56 @@ function renderCatalogue(products) {
   });
 }
 
+/* ═══════════════════════════════════════════════════════════
+   BUILD PRODUCT CARD
+═══════════════════════════════════════════════════════════ */
 function buildProductCard(p) {
-  const card = document.createElement('div');
+  const card   = document.createElement('div');
   card.className = 'product-card';
-  card.dataset.id = p.id;
+  card.dataset.code = p.code;
 
-  const imgId = `img-${p.id}`;
-  const phId  = `ph-${p.id}`;
+  const imgId  = `img-${p.code}`;
+  const phId   = `ph-${p.code}`;
+  const panelId= `panel-${p.code}`;
+  const toggleId=`toggle-${p.code}`;
+
+  // Gen / subcat meta line
+  const metaParts = [p.subCat, p.gen].filter(Boolean);
+  const metaHtml  = metaParts.length
+    ? `<div class="product-meta">${metaParts.join(' · ')}</div>` : '';
+
+  // Detail text
+  const detailHtml = p.detail
+    ? `<p class="detail-text">${p.detail}</p>` : '';
+
+  // Size chart button
+  const chartHtml = p.sizeChart
+    ? `<button class="size-chart-btn" onclick="openLightbox('${p.sizeChart}', '${p.name} Size Chart')">
+         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+           <rect x="3" y="3" width="18" height="18" rx="2"/>
+           <line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/>
+           <line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/>
+         </svg>
+         View size chart
+       </button>` : '';
+
+  // Only show detail panel toggle if there's something to show
+  const hasDetail = p.detail || p.sizeChart;
+  const toggleHtml = hasDetail ? `
+    <button class="detail-toggle" id="${toggleId}" onclick="toggleDetail('${p.code}')">
+      Details <span class="arrow">▾</span>
+    </button>
+    <div class="detail-panel" id="${panelId}">
+      <div class="detail-panel-inner">
+        ${detailHtml}
+        ${chartHtml}
+      </div>
+    </div>` : '';
+
+  // Order controls
+  const controlsHtml = p.isOne
+    ? renderQtyBody(p)
+    : renderSizedBody(p);
 
   card.innerHTML = `
     <div class="product-img-wrap">
@@ -801,45 +656,97 @@ function buildProductCard(p) {
     </div>
     <div class="product-body">
       <div class="product-name">${p.name}</div>
-      <div class="product-desc">${p.description || ''}</div>
-      <div class="product-price loading" id="price-${p.id}">—</div>
-      ${p.type === 'sized' ? renderSizedBody(p) : renderQtyBody(p)}
-    </div>`;
+      ${metaHtml}
+      <div class="product-price loading" id="price-${p.code}">—</div>
+      ${controlsHtml}
+    </div>
+    ${toggleHtml}`;
+
+  // Apply stock once card is in DOM — use microtask so DOM is ready
+  Promise.resolve().then(() => applyStockToCard(p));
 
   return card;
 }
 
 function renderSizedBody(p) {
   return `
-    <div class="size-grid">
+    <div class="size-grid" style="margin-top:auto">
       ${p.sizes.map(sz => `
         <div class="size-row">
           <span class="size-label">${sz}</span>
-          <div class="stepper disabled" id="stepper-${p.id}-${sz}">
+          <div class="stepper disabled" id="stepper-${p.code}-${sz}">
             <button type="button" class="step-btn" onclick="step(this,-1)">−</button>
             <input type="number" min="0" value="0"
-                   data-product="${p.id}" data-size="${sz}"
+                   data-product="${p.code}" data-size="${sz}"
                    aria-label="${p.name} size ${sz}" />
             <button type="button" class="step-btn" onclick="step(this,1)">+</button>
           </div>
-          <span class="stock-hint" id="hint-${p.id}-${sz}">loading…</span>
+          <span class="stock-hint" id="hint-${p.code}-${sz}">loading…</span>
         </div>`).join('')}
     </div>`;
 }
 
 function renderQtyBody(p) {
   return `
-    <div class="qty-row">
+    <div class="qty-row" style="margin-top:auto; flex-direction:column; align-items:flex-start; gap:0.4rem">
       <label>Quantity</label>
-      <div class="stepper disabled" id="stepper-${p.id}">
+      <div class="stepper disabled" id="stepper-${p.code}-ALL">
         <button type="button" class="step-btn" onclick="step(this,-1)">−</button>
         <input type="number" min="0" value="0"
-               data-product="${p.id}"
+               data-product="${p.code}" data-size="ALL"
                aria-label="${p.name} quantity" />
         <button type="button" class="step-btn" onclick="step(this,1)">+</button>
       </div>
-    </div>
-    <span class="stock-hint" id="hint-${p.id}" style="margin-top:0.4rem">loading…</span>`;
+      <span class="stock-hint" id="hint-${p.code}-ALL" style="margin-top:0.1rem">loading…</span>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   APPLY STOCK TO A SINGLE CARD
+═══════════════════════════════════════════════════════════ */
+function applyStockToCard(p) {
+  let priceSet = false;
+
+  p.sizes.forEach(sz => {
+    const key      = `${p.code}|${sz}`;
+    const data     = stockMap[key];
+    const stepperId= `stepper-${p.code}-${sz}`;
+    const hintId   = `hint-${p.code}-${sz}`;
+    const stepperEl= document.getElementById(stepperId);
+    const hintEl   = document.getElementById(hintId);
+
+    if (!stepperEl) return;
+
+    if (!data || data.stock <= 0) {
+      stepperEl.classList.add('disabled');
+      stepperEl.querySelector('input').value = 0;
+      if (hintEl) { hintEl.textContent = 'Out of stock'; hintEl.className = 'oos-badge'; }
+    } else {
+      stepperEl.classList.remove('disabled');
+      if (hintEl) {
+        hintEl.className = data.stock <= 3 ? 'stock-hint low' : 'stock-hint';
+        hintEl.textContent = data.stock <= 3 ? `Only ${data.stock} left` : `${data.stock} available`;
+      }
+      // Set price from first available size
+      if (!priceSet) {
+        setPrice(p.code, data.price);
+        priceSet = true;
+      }
+    }
+  });
+
+  if (!priceSet) {
+    // All sizes out of stock — still try to show price from any key
+    const anyKey = p.sizes.map(sz => `${p.code}|${sz}`).find(k => stockMap[k]);
+    if (anyKey) setPrice(p.code, stockMap[anyKey].price);
+  }
+}
+
+function setPrice(code, price) {
+  const el = document.getElementById(`price-${code}`);
+  if (!el) return;
+  el.textContent = `R ${price.toFixed(2)}`;
+  el.classList.remove('loading');
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -848,54 +755,81 @@ function renderQtyBody(p) {
 function step(btn, delta) {
   const stepper = btn.parentElement;
   if (stepper.classList.contains('disabled')) return;
-  const inp = stepper.querySelector('input');
-
-  // Enforce max = stock on hand
-  const pid  = inp.dataset.product;
-  const size = inp.dataset.size;
-  const key  = size
-    ? `${pid.toUpperCase()}|${size.toUpperCase()}`
-    : pid.toUpperCase();
-  const maxStock = stockMap[key] ? stockMap[key].stock : 9999;
-
-  const cur = parseInt(inp.value, 10) || 0;
-  inp.value = Math.min(maxStock, Math.max(0, cur + delta));
+  const inp  = stepper.querySelector('input');
+  const code = inp.dataset.product;
+  const size = inp.dataset.size || 'ALL';
+  const key  = `${code}|${size}`;
+  const max  = stockMap[key] ? stockMap[key].stock : 9999;
+  inp.value  = Math.min(max, Math.max(0, (parseInt(inp.value, 10) || 0) + delta));
   inp.dispatchEvent(new Event('input'));
 }
+
+/* ═══════════════════════════════════════════════════════════
+   DETAIL PANEL TOGGLE
+═══════════════════════════════════════════════════════════ */
+function toggleDetail(code) {
+  const panel  = document.getElementById(`panel-${code}`);
+  const toggle = document.getElementById(`toggle-${code}`);
+  if (!panel) return;
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHTBOX
+═══════════════════════════════════════════════════════════ */
+function openLightbox(src, alt) {
+  const lb  = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src;
+  img.alt = alt || 'Size chart';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close lightbox on Escape key
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
 /* ═══════════════════════════════════════════════════════════
    LIVE ORDER SUMMARY
 ═══════════════════════════════════════════════════════════ */
 function updateSummary() {
-  const list      = document.getElementById('summary-list');
-  const empty     = document.getElementById('summary-empty');
-  const totalRow  = document.getElementById('summary-total');
-  const totalAmt  = document.getElementById('total-amount');
-  const lines     = buildOrderLines();
+  const list     = document.getElementById('summary-list');
+  const empty    = document.getElementById('summary-empty');
+  const totalRow = document.getElementById('summary-total');
+  const totalAmt = document.getElementById('total-amount');
+  const lines    = buildOrderLines();
 
   list.innerHTML = '';
 
   if (lines.length === 0) {
-    empty.style.display = '';
+    empty.style.display    = '';
     totalRow.style.display = 'none';
     return;
   }
 
   empty.style.display = 'none';
-  let grandTotal = 0;
-  let hasPrices  = false;
+  let grandTotal = 0, hasPrices = false;
 
   lines.forEach(line => {
     const li = document.createElement('li');
     let priceHtml = '';
     if (line.unitPrice > 0) {
-      const lineTotal = line.unitPrice * line.qty;
-      grandTotal += lineTotal;
-      hasPrices = true;
-      priceHtml = `<span class="sum-price">R ${lineTotal.toFixed(2)}</span>`;
+      const lt = line.unitPrice * line.qty;
+      grandTotal += lt;
+      hasPrices   = true;
+      priceHtml   = `<span class="sum-price">R ${lt.toFixed(2)}</span>`;
     }
+    // Don't show "ALL" as a size in the summary
+    const sizeLabel = (line.size && line.size !== 'ALL') ? ` (${line.size})` : '';
     li.innerHTML = `
-      <span>${line.label}</span>
+      <span>${line.product}${sizeLabel}</span>
       <span class="sum-qty">× ${line.qty}</span>
       ${priceHtml}`;
     list.appendChild(li);
@@ -912,21 +846,16 @@ function buildOrderLines() {
   document.querySelectorAll('input[type="number"][data-product]').forEach(inp => {
     const qty = parseInt(inp.value, 10) || 0;
     if (qty <= 0) return;
-
-    const pid  = inp.dataset.product;
-    const size = inp.dataset.size || null;
-    const prod = products.find(p => p.id === pid);
-    const key  = size
-      ? `${pid.toUpperCase()}|${size.toUpperCase()}`
-      : pid.toUpperCase();
-    const unitPrice = stockMap[key] ? stockMap[key].price : 0;
-
+    const code = inp.dataset.product;
+    const size = inp.dataset.size || 'ALL';
+    const prod = products.find(p => p.code === code);
+    const key  = `${code}|${size}`;
     lines.push({
-      product:   prod?.name || pid,
+      product:   prod?.name || code,
       size,
       qty,
-      unitPrice,
-      label: size ? `${prod?.name || pid} (${size})` : (prod?.name || pid)
+      unitPrice: stockMap[key]?.price || 0,
+      label:     size !== 'ALL' ? `${prod?.name || code} (${size})` : (prod?.name || code)
     });
   });
   return lines;
@@ -937,13 +866,12 @@ function buildOrderLines() {
 ═══════════════════════════════════════════════════════════ */
 function validate() {
   let ok = true;
-  const fields = [
+  [
     { id: 'fname',  errId: 'fname-err',  check: v => v.trim().length > 0 },
     { id: 'lname',  errId: 'lname-err',  check: v => v.trim().length > 0 },
     { id: 'email',  errId: 'email-err',  check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
     { id: 'mobile', errId: 'mobile-err', check: v => v.trim().length >= 7 },
-  ];
-  fields.forEach(({ id, errId, check }) => {
+  ].forEach(({ id, errId, check }) => {
     const inp  = document.getElementById(id);
     const err  = document.getElementById(errId);
     const pass = check(inp.value);
@@ -958,15 +886,12 @@ function validate() {
    SUBMIT
 ═══════════════════════════════════════════════════════════ */
 async function submitOrder() {
-  if (!validate()) {
-    showToast('Please fill in all required fields.', true);
-    return;
-  }
+  if (!validate()) { showToast('Please fill in all required fields.', true); return; }
+
   const lines = buildOrderLines();
-  if (lines.length === 0) {
-    showToast('Please select at least one product.', true);
-    return;
-  }
+  if (lines.length === 0) { showToast('Please select at least one product.', true); return; }
+
+  const orderTotal = +lines.reduce((s, l) => s + l.unitPrice * l.qty, 0).toFixed(2);
 
   const payload = {
     submitted_at: new Date().toISOString(),
@@ -978,14 +903,14 @@ async function submitOrder() {
     },
     order_lines: lines.map(l => ({
       product:    l.product,
-      size:       l.size,
+      size:       l.size !== 'ALL' ? l.size : '',
       qty:        l.qty,
       unit_price: l.unitPrice,
       line_total: +(l.unitPrice * l.qty).toFixed(2),
-      label:      l.label
+      label:      l.label,
     })),
     order_summary: lines.map(l => l.label + ' x' + l.qty).join('; '),
-    order_total:   +lines.reduce((s, l) => s + l.unitPrice * l.qty, 0).toFixed(2)
+    order_total:   orderTotal,
   };
 
   const btn = document.getElementById('submit-btn');
@@ -993,16 +918,25 @@ async function submitOrder() {
   btn.textContent = 'Sending…';
 
   try {
-    await fetch(WEBHOOK_URL, {
+    const res  = await fetch(WORKER_URL, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(payload),
     });
-    showToast('✓ Order submitted successfully!');
+
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error || 'Order processor returned an error');
+
+    const orderId     = data.order_id;
+    const paymentLink = `${PAYMENT_URL}?order_id=${encodeURIComponent(orderId)}&amount=${orderTotal}`;
+
+    showToast(`✓ Order ${orderId} confirmed — redirecting to payment…`);
     resetForm();
+    setTimeout(() => { window.location.href = paymentLink; }, 2000);
+
   } catch (err) {
     console.error(err);
-    showToast('Submission failed — please try again.', true);
+    showToast('Submission failed — ' + err.message, true);
   } finally {
     btn.disabled    = false;
     btn.textContent = 'Place Order';
@@ -1010,12 +944,8 @@ async function submitOrder() {
 }
 
 function resetForm() {
-  ['fname','lname','email','mobile'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
-  document.querySelectorAll('input[type="number"][data-product]').forEach(inp => {
-    inp.value = 0;
-  });
+  ['fname','lname','email','mobile'].forEach(id => document.getElementById(id).value = '');
+  document.querySelectorAll('input[type="number"][data-product]').forEach(inp => inp.value = 0);
   updateSummary();
 }
 
@@ -1030,6 +960,5 @@ function showToast(msg, isError = false) {
   setTimeout(() => t.classList.remove('show'), 4000);
 }
 </script>
-
 </body>
 </html>
