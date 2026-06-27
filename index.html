@@ -234,7 +234,7 @@ const SHOW_STOCK_COUNT = false;
 // Hide zero-stock sizes entirely instead of showing a greyed-out "Out of stock" badge
 // true  = size row disappears when stock = 0
 // false = size row stays, greyed out with "Out of stock" label
-const HIDE_ZERO_STOCK = true;
+const HIDE_ZERO_STOCK = false;
 
 // Sizes with stock at or below this number show the "Only X left" warning in amber
 // Set to 0 to disable the low-stock warning entirely
@@ -249,7 +249,7 @@ const MODE = 'order';
    SIZE TYPE DEFINITIONS
 ═══════════════════════════════════════════════════════════ */
 const SIZE_TYPES = {
-  'SML':    ['2XS', 'XS', 'S', 'M', 'L', 'XL', '2XL', '3XL'],
+  'SML':    ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL'],
   'ONE':    ['ALL'],
   'SOCKS':  ['8', '9', '10', '11'],
   'INCHES': ['28', '30', '32', '34', '36', '38'],
