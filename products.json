@@ -1,6 +1,7 @@
 [
   {
-    "id": "hoody",
+    "id": "HOODY",
+    "category": "Clothing",
     "name": "Hoody",
     "type": "sized",
     "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
@@ -8,7 +9,8 @@
     "description": "Premium pullover hoody"
   },
   {
-    "id": "sweater",
+    "id": "SWEATER",
+    "category": "Clothing",
     "name": "Sweater",
     "type": "sized",
     "sizes": ["XS", "S", "M", "L", "XL", "2XL"],
@@ -16,35 +18,40 @@
     "description": "Classic crew-neck sweater"
   },
   {
-    "id": "umbrella",
+    "id": "UMBRELLA",
+    "category": "Accessories",
     "name": "Umbrella",
     "type": "quantity",
     "image": "images/umbrella.jpg",
     "description": "Full-size branded umbrella"
   },
   {
-    "id": "cushion",
+    "id": "CUSHION",
+    "category": "Accessories",
     "name": "Cushion",
     "type": "quantity",
     "image": "images/cushion.jpg",
     "description": "Decorative printed cushion"
   },
   {
-    "id": "hat",
+    "id": "HAT",
+    "category": "Accessories",
     "name": "Hat",
     "type": "quantity",
     "image": "images/hat.jpg",
     "description": "Embroidered cap"
   },
   {
-    "id": "scarf",
+    "id": "SCARF",
+    "category": "Accessories",
     "name": "Scarf",
     "type": "quantity",
     "image": "images/scarf.jpg",
     "description": "Woven branded scarf"
   },
   {
-    "id": "key_holder",
+    "id": "KEYHOLDER",
+    "category": "Accessories",
     "name": "Key Holder",
     "type": "quantity",
     "image": "images/key_holder.jpg",
