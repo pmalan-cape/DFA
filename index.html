@@ -574,69 +574,67 @@ async function fetchAndApplyStock() {
 
 /**
  * Parse CSV into stockMap.
- * Expected columns (case-insensitive, order flexible):
- *   StockID, Batch, ProductCat, ProductCode, ProductName,
- *   Size, Gen, PurchacePrice, BatchReceiveDate,
- *   OrderCount, SoldCount, StockOnHand
+ * Columns: StockID, Batch, ProductCat, ProductCode, ProductName,
+ *          Size, Gen, PurchacePrice, BatchReceiveDate,
+ *          OrderCount, SoldCount, StockOnHand
  *
  * Key strategy:
- *   Sized items  → "PRODUCTCODE|SIZE"   e.g. "HOODY|L"
- *   Other items  → "PRODUCTCODE"        e.g. "UMBRELLA"
+ *   Sized items  → "PRODUCTCODE|SIZE"  e.g. "HOODY|L"
+ *   Other items  → "PRODUCTCODE"       e.g. "UMBRELLA"
  *
- * When multiple rows share a key (multiple batches),
- * stock is summed and the lowest price is used.
+ * Multiple batches per key → stock summed, lowest price kept.
+ * Negative StockOnHand values are treated as 0.
  */
 function parseStockCsv(csv) {
   const lines = csv.trim().split('\n');
   if (lines.length < 2) return {};
 
-  // Parse header — normalise to lowercase, trim whitespace/BOM
-  const headers = lines[0].split(',').map(h =>
-    h.trim().toLowerCase().replace(/^\ufeff/, '').replace(/[^a-z]/g, '')
-  );
+  // Normalise header: lowercase, letters only, strip BOM
+  // Only look at the first 12 columns — ignore trailing legend columns
+  const MAX_COLS = 12;
+  const headers = splitCsvLine(lines[0])
+    .slice(0, MAX_COLS)
+    .map(h => h.trim().toLowerCase().replace(/^\ufeff/, '').replace(/[^a-z]/g, ''));
 
+  // Exact column lookup by normalised name
   const col = name => headers.indexOf(name);
 
-  const iCode  = col('productcode');
-  const iSize  = col('size');
-  const iPrice = col('purchaceprice');   // note: your column name has the typo
-  const iStock = col('stockonhand');
+  const cCode  = col('productcode');   // col 3
+  const cSize  = col('size');          // col 5
+  const cPrice = col('purchaceprice'); // col 7  (intentional typo in sheet)
+  const cStock = col('stockonhand');   // col 11
 
-  // Fallback column detection if names differ slightly
-  const findCol = (...candidates) => {
-    for (const c of candidates) {
-      const idx = headers.findIndex(h => h.includes(c));
-      if (idx !== -1) return idx;
-    }
-    return -1;
-  };
-
-  const cCode  = iCode  !== -1 ? iCode  : findCol('productcode', 'code');
-  const cSize  = iSize  !== -1 ? iSize  : findCol('size');
-  const cPrice = iPrice !== -1 ? iPrice : findCol('purchace', 'price');
-  const cStock = iStock !== -1 ? iStock : findCol('stockonhand', 'stock');
+  // Bail out if essential columns not found
+  if (cCode === -1 || cStock === -1) {
+    console.warn('Stock CSV: could not find required columns. Headers found:', headers);
+    return {};
+  }
 
   const map = {};
 
   for (let i = 1; i < lines.length; i++) {
-    const cols  = splitCsvLine(lines[i]);
-    if (cols.length < 3) continue;
+    const line = lines[i].trim();
+    if (!line) continue;
 
-    const code  = (cols[cCode]  || '').trim().toUpperCase();
-    const size  = (cols[cSize]  || '').trim().toUpperCase();
-    const price = parseFloat((cols[cPrice] || '0').replace(/[^0-9.]/g, '')) || 0;
-    const stock = parseInt((cols[cStock]  || '0').replace(/[^0-9]/g, ''),  10) || 0;
+    const cols = splitCsvLine(line).slice(0, MAX_COLS);
+
+    const code  = (cols[cCode] || '').trim().toUpperCase();
+    const size  = cSize  !== -1 ? (cols[cSize]  || '').trim().toUpperCase() : '';
+    const price = cPrice !== -1 ? parseFloat((cols[cPrice] || '0').trim()) || 0 : 0;
+    // Parse stock: allow negatives (treat as 0), strip any stray chars except minus/digits
+    const rawStock = (cols[cStock] || '0').trim().replace(/[^0-9\-]/g, '');
+    const stock = Math.max(0, parseInt(rawStock, 10) || 0);
 
     if (!code) continue;
 
+    // Sized product: key = "PRODUCTCODE|SIZE"; quantity product: key = "PRODUCTCODE"
     const key = size ? `${code}|${size}` : code;
 
     if (!map[key]) {
       map[key] = { price, stock };
     } else {
-      // Aggregate multiple batches
       map[key].stock += stock;
-      map[key].price  = Math.min(map[key].price, price); // show lowest price
+      map[key].price  = Math.min(map[key].price, price); // lowest price across batches
     }
   }
 
