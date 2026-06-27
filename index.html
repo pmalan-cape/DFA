@@ -104,7 +104,7 @@
     .category-heading::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     /* ── Product grid ────────────────────────────────────── */
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.25rem; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
 
     /* ── Product card ────────────────────────────────────── */
     .product-card {
@@ -148,7 +148,7 @@
     @keyframes shimmer { 0%,100%{opacity:0.5} 50%{opacity:1} }
 
     /* ── Size grid ───────────────────────────────────────── */
-    .size-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .size-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 0.5rem; }
     .size-row { display: flex; flex-direction: column; gap: 0.25rem; align-items: center; }
     .size-label { font-size: 0.7rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
     .oos-badge {
@@ -167,19 +167,22 @@
     .stepper {
       display: flex; align-items: center;
       border: 1.5px solid var(--border); border-radius: 8px;
-      overflow: hidden; width: fit-content;
+      overflow: hidden; width: fit-content; max-width: 100%;
     }
     .stepper input[type="number"] {
       border: none; border-left: 1.5px solid var(--border); border-right: 1.5px solid var(--border);
-      border-radius: 0; box-shadow: none; width: 52px; padding: 0.45rem 0.25rem; text-align: center;
+      border-radius: 0; box-shadow: none; width: 40px; padding: 0.45rem 0.1rem; text-align: center;
+      -moz-appearance: textfield;
     }
+    .stepper input[type="number"]::-webkit-outer-spin-button,
+    .stepper input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     .stepper input[type="number"]:focus { box-shadow: none; border-color: var(--border); }
     .stepper.disabled { opacity: 0.45; pointer-events: none; background: var(--oos-bg); }
     .step-btn {
       background: var(--cream); border: none; cursor: pointer;
-      width: 32px; height: 36px; font-size: 1.1rem; color: var(--slate);
+      width: 26px; height: 36px; font-size: 1rem; color: var(--slate);
       transition: background 0.15s; display: flex; align-items: center;
-      justify-content: center; user-select: none;
+      justify-content: center; user-select: none; flex-shrink: 0;
     }
     .step-btn:hover  { background: var(--border); }
     .step-btn:active { background: #d5d2cd; }
@@ -288,10 +291,13 @@
     #toast.show  { transform: translateX(-50%) translateY(0); }
 
     /* ── Responsive ──────────────────────────────────────── */
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       .contact-grid { grid-template-columns: 1fr; }
       .product-grid  { grid-template-columns: 1fr; }
-      .size-grid     { grid-template-columns: repeat(2, 1fr); }
+    }
+    /* Ensure size grid never overflows on any narrow card */
+    @media (max-width: 400px) {
+      .size-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -367,12 +373,10 @@ const PRODUCT_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRkNV_v
 const STOCK_CSV_URL   = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRkNV_v3bf_N7ZlexF2nIstAqexwzwM8cKuf4dFMY8yWXv1J16EM7YVa55Z4WXvuJfM1zsm7h7hPCFA/pub?gid=1208027457&single=true&output=csv';
 
 // Cloudflare Worker URL — replace after deploying cloudflare-worker.js
-const WORKER_URL  = 'https://little-mountain-0377.pmalan-cape.workers.dev/';
+const WORKER_URL  = 'https://YOUR-WORKER-NAME.YOUR-ACCOUNT.workers.dev';
 
 // Payment platform base URL
-const PAYMENT_URL = 'https://pay.yoco.com/cape-multisport';
-  //"https://pay.yoco.com/cape-multisport?amount="&F3&"&reference="&G3
-  //https://pay.yoco.com/[your-business-name]?amount=[value]&reference=[text]
+const PAYMENT_URL = 'https://YOUR-PAYMENT-PLATFORM/checkout';
 
 /* ═══════════════════════════════════════════════════════════
    SIZE TYPE DEFINITIONS
@@ -928,8 +932,7 @@ async function submitOrder() {
     if (!data.success) throw new Error(data.error || 'Order processor returned an error');
 
     const orderId     = data.order_id;
-   // const paymentLink = `${PAYMENT_URL}?order_id=${encodeURIComponent(orderId)}&amount=${orderTotal}`;
-    const paymentLink = `${PAYMENT_URL}?amount=${orderTotal}&reference=${encodeURIComponent(orderId)}`;
+    const paymentLink = `${PAYMENT_URL}?order_id=${encodeURIComponent(orderId)}&amount=${orderTotal}`;
 
     showToast(`✓ Order ${orderId} confirmed — redirecting to payment…`);
     resetForm();
