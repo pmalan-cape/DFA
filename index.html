@@ -373,10 +373,10 @@ const PRODUCT_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRkNV_v
 const STOCK_CSV_URL   = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRkNV_v3bf_N7ZlexF2nIstAqexwzwM8cKuf4dFMY8yWXv1J16EM7YVa55Z4WXvuJfM1zsm7h7hPCFA/pub?gid=1208027457&single=true&output=csv';
 
 // Cloudflare Worker URL — replace after deploying cloudflare-worker.js
-const WORKER_URL  = 'https://YOUR-WORKER-NAME.YOUR-ACCOUNT.workers.dev';
+const WORKER_URL  = 'https://little-mountain-0377.pmalan-cape.workers.dev/';
 
 // Payment platform base URL
-const PAYMENT_URL = 'https://YOUR-PAYMENT-PLATFORM/checkout';
+const PAYMENT_URL = 'https://pay.yoco.com/cape-multisport';
 
 /* ═══════════════════════════════════════════════════════════
    SIZE TYPE DEFINITIONS
@@ -932,8 +932,8 @@ async function submitOrder() {
     if (!data.success) throw new Error(data.error || 'Order processor returned an error');
 
     const orderId     = data.order_id;
+    //const paymentLink = `${PAYMENT_URL}?order_id=${encodeURIComponent(orderId)}&amount=${orderTotal}`;
     const paymentLink = `${PAYMENT_URL}?order_id=${encodeURIComponent(orderId)}&amount=${orderTotal}`;
-
     showToast(`✓ Order ${orderId} confirmed — redirecting to payment…`);
     resetForm();
     setTimeout(() => { window.location.href = paymentLink; }, 2000);
